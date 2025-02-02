@@ -6,14 +6,14 @@
     "private": true,
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/example/my-extension.git"
+        "url": "git+https://github.com/manuel-g-ferreira/gnome-shell-extension-gluco-tracker.git"
     },
     "author": "Manuel Ferreira",
     "license": "LGPL-3.0-or-later",
     "bugs": {
-        "url": "https://github.com/example/my-extension/issues"
+        "url": "https://github.com/manuel-g-ferreira/gnome-shell-extension-gluco-tracker/issues"
     },
-    "homepage": "https://github.com/example/my-extension#readme",
+    "homepage": "https://github.com/manuel-g-ferreira/gnome-shell-extension-gluco-tracker#readme",
     "sideEffects": false,
     "devDependencies": {
         "eslint": "^9.19.0",
