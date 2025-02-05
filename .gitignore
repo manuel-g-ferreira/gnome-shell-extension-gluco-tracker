@@ -20,3 +20,7 @@ yarn-error.log*
 # Ignore OS-specific files
 .DS_Store
 Thumbs.db
+
+# Ignore editor-specific files
+.idea/
+.vscode/

@@ -1,4 +1,5 @@
 {
+    "version": "0.0.1",
     "name": "Gluco Tracker",
     "description": "Displays live glucose values with trend in the top bar and provides API/provider configuration.",
     "uuid": "gluco-tracker@gluco.dev",
