@@ -1,31 +1,27 @@
-import Adw from 'gi://Adw';
-import GObject from 'gi://GObject';
-import Gio from 'gi://Gio';
+import Adw from "gi://Adw";
+import Gio from "gi://Gio";
 import { gettext as _ } from 'resource:///org/gnome/Shell/Extensions/js/extensions/prefs.js';
+import GObject from "gi://GObject";
 
-// Define the type for the settings keys object.
-type SettingsKeyType = Record<string, string>;
-
-export var GeneralPage = GObject.registerClass(
+const GeneralPage = GObject.registerClass(
     class GeneralPage extends Adw.PreferencesPage {
-        _settings: Gio.Settings | undefined;
-        _settingsKey: SettingsKeyType | undefined;
+        private _settings!: Gio.Settings;
+        private _settingsKey!: Record<string, string>;
 
-        _init(settings: Gio.Settings, settingsKey: SettingsKeyType) {
+        _init(settings: Gio.Settings, settingsKey: Record<string, string>) {
             super._init({
-                title: _('General'),
-                icon_name: 'general-symbolic',
-                name: 'GeneralPage'
+                title: _("General"),
+                icon_name: "general-symbolic",
+                name: "GeneralPage"
             });
             this._settings = settings;
             this._settingsKey = settingsKey;
 
-            // Behavior group
-            // --------------
-            let behaviorGroup = new Adw.PreferencesGroup({
-                title: _('Behavior')
-            });
-
+            // Example: Create a Behavior group.
+            const behaviorGroup = new Adw.PreferencesGroup({ title: _("Behavior") });
             this.add(behaviorGroup);
         }
-    });
+    }
+);
+
+export default GeneralPage;

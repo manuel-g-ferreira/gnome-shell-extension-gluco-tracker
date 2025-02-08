@@ -1,6 +1,5 @@
 <schemalist>
   <schema id="org.gnome.shell.extensions.gluco-tracker" path="/org/gnome/shell/extensions/gluco-tracker/">
-    <!-- Existing keys -->
     <key name="prefs-default-width" type="i">
       <default>600</default>
       <summary>Default Preferences Window Width</summary>
@@ -11,14 +10,10 @@
       <summary>Default Preferences Window Height</summary>
       <description>The default height for the preferences window.</description>
     </key>
-    <!-- Add this key for the status indicator -->
     <key name="show-indicator" type="i">
       <default>0</default>
       <summary>Show Status Indicator</summary>
-      <description>
-        Determines when the status indicator is visible.
-        0: Only when active, 1: Always, 2: Never.
-      </description>
+      <description>0: Only when active, 1: Always, 2: Never.</description>
     </key>
     <key name="indicator-position" type="i">
       <default>0</default>
@@ -34,6 +29,21 @@
       <default>5</default>
       <summary>Indicator Position Maximum</summary>
       <description>The maximum allowed value for the indicator position.</description>
+    </key>
+    <key name="username" type="s">
+      <default>''</default>
+      <summary>Username</summary>
+      <description>The username for your account.</description>
+    </key>
+    <key name="password" type="s">
+      <default>''</default>
+      <summary>Password</summary>
+      <description>The password for your account.</description>
+    </key>
+    <key name="api-source" type="i">
+      <default>-1</default>
+      <summary>API Source</summary>
+      <description>0 for LibreLink, 1 for Dexcom, -1 for none selected.</description>
     </key>
   </schema>
 </schemalist>
