@@ -19,6 +19,7 @@ export const SettingsKey = {
   USERNAME: "username",
   PASSWORD: "password",
   API_SOURCE: "api-source",
+  ACCESS_TOKEN: "access-token"
 };
 
 export default class GlucoTrackerPreferences extends ExtensionPreferences {

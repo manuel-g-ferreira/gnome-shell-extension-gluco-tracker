@@ -45,5 +45,10 @@
       <summary>API Source</summary>
       <description>0 for LibreLink, 1 for Dexcom, -1 for none selected.</description>
     </key>
+    <key name="access-token" type="s">
+      <default>''</default>
+      <summary>Access Token</summary>
+      <description>The access token for your account.</description>
+    </key>
   </schema>
 </schemalist>

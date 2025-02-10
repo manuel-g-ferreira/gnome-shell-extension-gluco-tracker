@@ -25,7 +25,7 @@ const DisplayPage = GObject.registerClass(
             // Create a ComboRow for "Show status indicator" mode.
             const showStatusIndicator = new Gtk.StringList();
             showStatusIndicator.append(_("Only when active"));
-            showStatusIndicator.append(_("Always"));
+            showStatusIndicator.append(_("Als"));
             showStatusIndicator.append(_("Never"));
             const showStatusIndicatorRow = new Adw.ComboRow({
                 title: _("Show status indicator in top panel"),
