@@ -1,0 +1,29 @@
+# Ignore Node.js dependencies (both at root and nested in subdirectories)
+node_modules/
+**/node_modules/
+
+# Ignore compiled distribution directories (e.g., TypeScript output)
+dist/
+**/dist/
+
+# Ignore generated schema compilation output
+**/schemas/gschemas.compiled
+
+# Ignore packaged zip files
+*.zip
+
+# Ignore npm and yarn log files
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Ignore OS-specific files
+.DS_Store
+Thumbs.db
+
+# Ignore editor-specific files
+.idea/
+.vscode/
+
+# Ignore locale
+locale/

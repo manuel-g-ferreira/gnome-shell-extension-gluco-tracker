@@ -1,0 +1,44 @@
+name: PR Checks
+
+on:
+  pull_request:
+    branches:
+      - main
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run ESLint
+        run: npm run lint
+
+      - name: Run Prettier Check
+        run: npm run prettier:check
+
+      - name: Build project (clean, schema, tsc, copy metadata)
+        run: npm run build
+
+      - name: Verify Translations
+        run: |
+          npm run create:translations
+          npm run merge:translations
+          npm run build:translations
+
+      - name: Build Package
+        run: npm run build:package

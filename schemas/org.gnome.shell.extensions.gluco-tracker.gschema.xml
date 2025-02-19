@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schemalist>
+    <schema id="org.gnome.shell.extensions.gluco-tracker" path="/org/gnome/shell/extensions/gluco-tracker/">
+        <key name="prefs-default-width" type="i">
+            <default>600</default>
+            <summary>Default Preferences Window Width</summary>
+            <description>The default width for the preferences window.</description>
+        </key>
+        <key name="prefs-default-height" type="i">
+            <default>400</default>
+            <summary>Default Preferences Window Height</summary>
+            <description>The default height for the preferences window.</description>
+        </key>
+    </schema>
+</schemalist>
