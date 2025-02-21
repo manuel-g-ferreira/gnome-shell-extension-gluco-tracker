@@ -5,8 +5,8 @@ import Settings from './preferences/settings.js';
 import {Keys} from './preferences/settingsKeys.js';
 import SettingsHelper from './preferences/settingsHelper.js';
 import {GeneralPage} from './preferences/pages/generalPage.js';
-import {DisplayPage} from "./preferences/pages/displayPage.js";
-import {ConfigurationPage} from "./preferences/pages/configurationPage.js";
+import {DisplayPage} from './preferences/pages/displayPage.js';
+import {ConfigurationPage} from './preferences/pages/configurationPage.js';
 
 export default class GlucoTrackerPrefs extends ExtensionPreferences {
     fillPreferencesWindow(window: Adw.PreferencesWindow): Promise<void> {
@@ -22,7 +22,7 @@ export default class GlucoTrackerPrefs extends ExtensionPreferences {
         const configurationPage = new ConfigurationPage();
 
         window.add(generalPage);
-        window.add(displayPage)
+        window.add(displayPage);
         window.add(configurationPage);
 
         window.connect('close-request', () => {

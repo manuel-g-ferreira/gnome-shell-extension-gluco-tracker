@@ -1,4 +1,4 @@
-import GLib from "gi://GLib";
+import GLib from 'gi://GLib';
 
 export enum LogLevel {
     DEBUG = 0,
@@ -7,17 +7,17 @@ export enum LogLevel {
     ERROR = 3,
 }
 
-const envLevel = GLib.getenv("LOG_LEVEL")?.toLowerCase() || "info";
+const envLevel = GLib.getenv('LOG_LEVEL')?.toLowerCase() || 'info';
 
 function mapLogLevel(level: string): LogLevel {
     switch (level) {
-        case "debug":
+        case 'debug':
             return LogLevel.DEBUG;
-        case "warn":
+        case 'warn':
             return LogLevel.WARN;
-        case "error":
+        case 'error':
             return LogLevel.ERROR;
-        case "info":
+        case 'info':
         default:
             return LogLevel.INFO;
     }
@@ -38,25 +38,37 @@ export class Logger {
 
     debug(...args: unknown[]): void {
         if (this.level <= LogLevel.DEBUG) {
-            console.debug(`[${this.timestamp()}] [${this.prefix}] [DEBUG]`, ...args);
+            console.debug(
+                `[${this.timestamp()}] [${this.prefix}] [DEBUG]`,
+                ...args,
+            );
         }
     }
 
     info(...args: unknown[]): void {
         if (this.level <= LogLevel.INFO) {
-            console.info(`[${this.timestamp()}] [${this.prefix}] [INFO]`, ...args);
+            console.info(
+                `[${this.timestamp()}] [${this.prefix}] [INFO]`,
+                ...args,
+            );
         }
     }
 
     warn(...args: unknown[]): void {
         if (this.level <= LogLevel.WARN) {
-            console.warn(`[${this.timestamp()}] [${this.prefix}] [WARN]`, ...args);
+            console.warn(
+                `[${this.timestamp()}] [${this.prefix}] [WARN]`,
+                ...args,
+            );
         }
     }
 
     error(...args: unknown[]): void {
         if (this.level <= LogLevel.ERROR) {
-            console.error(`[${this.timestamp()}] [${this.prefix}] [ERROR]`, ...args);
+            console.error(
+                `[${this.timestamp()}] [${this.prefix}] [ERROR]`,
+                ...args,
+            );
         }
     }
 }
