@@ -16,19 +16,18 @@
     "build:translations": "for file in $(ls po/*.po); do mkdir -p resources/locale/$(basename $file .po)/LC_MESSAGES; msgfmt -c $file -o resources/locale/$(basename $file .po)/LC_MESSAGES/gluco-tracker.mo; done",
     "create:translations": "xgettext --from-code=UTF-8 --output=po/gluco-tracker@gluco.dev.pot -j --language=javascript --force-po dist/prefs.js dist/extension.js",
     "merge:translations": "for file in $(ls po/*.po); do msgmerge -U $file po/gluco-tracker@gluco.dev.pot --backup=none; done",
-    "lint": "eslint .",
+    "lint": "eslint . --ignore-pattern dist",
     "lint:fix": "eslint . --fix",
     "prettier:check": "prettier --check \"**/*.{ts,scss}\"",
     "prettier:fix": "prettier --write \"**/*.{ts,scss}\""
   },
-
   "type": "module",
   "devDependencies": {
     "@eslint/js": "^9.6.0",
     "@girs/gjs": "^4.0.0-beta.14",
     "@girs/gnome-shell": "^46.0.2",
     "@types/eslint__js": "^8.42.3",
-    "esbuild": "^0.21.5",
+    "esbuild": "^0.25.0",
     "esbuild-plugin-tsc": "^0.4.0",
     "eslint": "^8.57.0",
     "globals": "^15.6.0",

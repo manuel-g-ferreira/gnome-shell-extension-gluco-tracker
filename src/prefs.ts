@@ -4,10 +4,9 @@ import {ExtensionPreferences} from 'resource:///org/gnome/Shell/Extensions/js/ex
 import Settings from './preferences/settings.js';
 import {Keys} from './preferences/settingsKeys.js';
 import SettingsHelper from './preferences/settingsHelper.js';
-import {createLogger} from './utils/logger.js';
 import {GeneralPage} from './preferences/pages/generalPage.js';
-
-const logger = createLogger('prefs');
+import {DisplayPage} from "./preferences/pages/displayPage.js";
+import {ConfigurationPage} from "./preferences/pages/configurationPage.js";
 
 export default class GlucoTrackerPrefs extends ExtensionPreferences {
     fillPreferencesWindow(window: Adw.PreferencesWindow): Promise<void> {
@@ -19,8 +18,12 @@ export default class GlucoTrackerPrefs extends ExtensionPreferences {
         window.set_search_enabled(true);
 
         const generalPage = new GeneralPage();
+        const displayPage = new DisplayPage();
+        const configurationPage = new ConfigurationPage();
 
         window.add(generalPage);
+        window.add(displayPage)
+        window.add(configurationPage);
 
         window.connect('close-request', () => {
             const currentWidth = window.default_width;

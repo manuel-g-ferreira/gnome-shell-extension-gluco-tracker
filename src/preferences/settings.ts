@@ -19,7 +19,7 @@ export default class Settings {
         }
     }
 
-    static get gioSetting(): Gio.Settings {
+    static get getSettings(): Gio.Settings {
         return this._settings ?? new Gio.Settings();
     }
 }
