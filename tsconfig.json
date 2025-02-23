@@ -12,7 +12,8 @@
   },
   "include": [
     "ambient.d.ts",
-    "src/**/*.ts"
+    "src/**/*.ts",
+    "gi-modules.d.ts"
   ],
   "exclude": [
     "node_modules"

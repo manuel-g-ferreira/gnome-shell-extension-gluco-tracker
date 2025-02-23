@@ -7,4 +7,5 @@ export const Keys = {
     USERNAME: 'username',
     PASSWORD: 'password',
     API_SOURCE: 'api-source',
+    ACCESS_TOKEN: 'access-token',
 };

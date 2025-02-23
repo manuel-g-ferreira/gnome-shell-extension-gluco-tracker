@@ -8,6 +8,7 @@ import {gettext as _} from 'resource:///org/gnome/Shell/Extensions/js/extensions
 import Settings from '../settings.js';
 import {Keys} from '../settingsKeys.js';
 import SettingsHelper from '../settingsHelper.js';
+import {createGlucoAPI} from '../../api/factory/glucoApiFactory.js';
 
 export const ConfigurationPage = GObject.registerClass(
     {
@@ -95,27 +96,36 @@ export const ConfigurationPage = GObject.registerClass(
             credentialsGroup.add(passwordRow);
             this.add(credentialsGroup);
 
-            usernameRow.connect('notify::text', () => {
-                SettingsHelper.set_string(Keys.USERNAME, usernameRow.text);
-            });
-            this._settings.connect('changed::' + Keys.USERNAME, () => {
-                usernameRow.text = this._settings.get_string(Keys.USERNAME);
-            });
+            this._settings.bind(
+                Keys.USERNAME,
+                usernameRow,
+                'text',
+                Gio.SettingsBindFlags.DEFAULT,
+            );
+            this._settings.bind(
+                Keys.PASSWORD,
+                passwordRow,
+                'text',
+                Gio.SettingsBindFlags.DEFAULT,
+            );
 
-            passwordRow.connect('notify::text', () => {
-                SettingsHelper.set_string(Keys.PASSWORD, passwordRow.text);
-            });
-            this._settings.connect('changed::' + Keys.PASSWORD, () => {
-                passwordRow.text = this._settings.get_string(Keys.PASSWORD);
-            });
-
-            const loginButton = new Gtk.Button({label: _('Login')});
+            const loginButton = new Adw.ButtonContent({label: _('Login')});
             loginButton.margin_top = 12;
             loginButton.margin_bottom = 12;
             credentialsGroup.add(loginButton);
 
             loginButton.connect('clicked', () => {
-                // Insert login logic here.
+                const username = SettingsHelper.get_string(Keys.USERNAME);
+                const password = SettingsHelper.get_string(Keys.PASSWORD);
+
+                const api = createGlucoAPI();
+                api.login(username, password)
+                    .then(() => {
+                        log('Login successful');
+                    })
+                    .catch((err) => {
+                        log('Login failed:', err);
+                    });
             });
         }
     },
