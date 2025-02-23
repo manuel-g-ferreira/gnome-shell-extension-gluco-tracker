@@ -2,7 +2,7 @@
 
 import GLib from 'gi://GLib';
 import Gio from 'gi://Gio';
-import Soup from '@girs/soup-3.0';
+import Soup from 'gi://Soup';
 import { GlucoAPI } from '../glucoApi.js';
 import SettingsHelper from '../../preferences/settingsHelper.js';
 import { Keys } from '../../preferences/settingsKeys.js';
