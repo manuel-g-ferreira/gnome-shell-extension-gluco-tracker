@@ -31,9 +31,7 @@ export const DisplayPage = GObject.registerClass(
             this.add(displayGroup);
 
             // Create a SpinRow for indicator position.
-            let lastIndicatorPos = SettingsHelper.get_number(
-                Keys.INDICATOR_POS_MAX,
-            );
+            let lastIndicatorPos = SettingsHelper.get_number(Keys.INDICATOR_POS_MAX);
             const spinRow = new Adw.SpinRow({
                 title: _('Status indicator position'),
                 subtitle: _('The position relative to other items'),
@@ -49,17 +47,10 @@ export const DisplayPage = GObject.registerClass(
             displayGroup.add(spinRow);
 
             // Bind the SpinRow using this._settings.bind.
-            this._settings.bind(
-                Keys.INDICATOR_POSITION,
-                spinRow.adjustment,
-                'value',
-                Gio.SettingsBindFlags.DEFAULT,
-            );
+            this._settings.bind(Keys.INDICATOR_POSITION, spinRow.adjustment, 'value', Gio.SettingsBindFlags.DEFAULT);
             // Update the upper bound if the maximum changes.
             this._settings.connect('changed::' + Keys.INDICATOR_POS_MAX, () => {
-                const newMax = SettingsHelper.get_number(
-                    Keys.INDICATOR_POS_MAX,
-                );
+                const newMax = SettingsHelper.get_number(Keys.INDICATOR_POS_MAX);
                 lastIndicatorPos = newMax;
                 spinRow.adjustment.set_upper(newMax);
             });

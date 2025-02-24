@@ -45,5 +45,10 @@
             <summary>Access Token</summary>
             <description>The access token for your account.</description>
         </key>
+        <key name="libre-link-api-url" type="s">
+            <default>'https://api-us.libreview.io'</default>
+            <summary>LibreLink API URL</summary>
+            <description>The URL for the LibreLink API.</description>
+        </key>
     </schema>
 </schemalist>

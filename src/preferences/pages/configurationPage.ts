@@ -96,20 +96,10 @@ export const ConfigurationPage = GObject.registerClass(
             credentialsGroup.add(passwordRow);
             this.add(credentialsGroup);
 
-            this._settings.bind(
-                Keys.USERNAME,
-                usernameRow,
-                'text',
-                Gio.SettingsBindFlags.DEFAULT,
-            );
-            this._settings.bind(
-                Keys.PASSWORD,
-                passwordRow,
-                'text',
-                Gio.SettingsBindFlags.DEFAULT,
-            );
+            this._settings.bind(Keys.USERNAME, usernameRow, 'text', Gio.SettingsBindFlags.DEFAULT);
+            this._settings.bind(Keys.PASSWORD, passwordRow, 'text', Gio.SettingsBindFlags.DEFAULT);
 
-            const loginButton = new Adw.ButtonContent({label: _('Login')});
+            const loginButton = new Gtk.Button({label: _('Login')});
             loginButton.margin_top = 12;
             loginButton.margin_bottom = 12;
             credentialsGroup.add(loginButton);

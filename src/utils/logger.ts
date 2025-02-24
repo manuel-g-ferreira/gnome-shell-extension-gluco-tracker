@@ -38,41 +38,28 @@ export class Logger {
 
     debug(...args: unknown[]): void {
         if (this.level <= LogLevel.DEBUG) {
-            console.debug(
-                `[${this.timestamp()}] [${this.prefix}] [DEBUG]`,
-                ...args,
-            );
+            console.debug(`[${this.timestamp()}] [${this.prefix}] [DEBUG]`, ...args);
         }
     }
 
     info(...args: unknown[]): void {
         if (this.level <= LogLevel.INFO) {
-            console.info(
-                `[${this.timestamp()}] [${this.prefix}] [INFO]`,
-                ...args,
-            );
+            console.info(`[${this.timestamp()}] [${this.prefix}] [INFO]`, ...args);
         }
     }
 
     warn(...args: unknown[]): void {
         if (this.level <= LogLevel.WARN) {
-            console.warn(
-                `[${this.timestamp()}] [${this.prefix}] [WARN]`,
-                ...args,
-            );
+            console.warn(`[${this.timestamp()}] [${this.prefix}] [WARN]`, ...args);
         }
     }
 
     error(...args: unknown[]): void {
         if (this.level <= LogLevel.ERROR) {
-            console.error(
-                `[${this.timestamp()}] [${this.prefix}] [ERROR]`,
-                ...args,
-            );
+            console.error(`[${this.timestamp()}] [${this.prefix}] [ERROR]`, ...args);
         }
     }
 }
 
 // Factory function example:
-export const createLogger = (prefix: string, level?: LogLevel): Logger =>
-    new Logger(prefix, level);
+export const createLogger = (prefix: string, level?: LogLevel): Logger => new Logger(prefix, level);

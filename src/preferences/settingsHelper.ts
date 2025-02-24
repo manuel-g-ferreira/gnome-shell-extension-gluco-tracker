@@ -1,10 +1,7 @@
 import Settings from './settings.js';
 
 function get_string(key: string): string {
-    return (
-        Settings.getSettings.get_string(key) ??
-        Settings.getSettings.get_default_value(key)?.get_string()[0]
-    );
+    return Settings.getSettings.get_string(key) ?? Settings.getSettings.get_default_value(key)?.get_string()[0];
 }
 
 function set_string(key: string, val: string): boolean {
@@ -12,10 +9,7 @@ function set_string(key: string, val: string): boolean {
 }
 
 function get_boolean(key: string): boolean {
-    return (
-        Settings.getSettings.get_boolean(key) ??
-        Settings.getSettings.get_default_value(key)?.get_boolean()
-    );
+    return Settings.getSettings.get_boolean(key) ?? Settings.getSettings.get_default_value(key)?.get_boolean();
 }
 
 function set_boolean(key: string, val: boolean): boolean {
@@ -23,10 +17,7 @@ function set_boolean(key: string, val: boolean): boolean {
 }
 
 function get_number(key: string): number {
-    return (
-        Settings.getSettings.get_int(key) ??
-        Settings.getSettings.get_default_value(key)?.get_int64()
-    );
+    return Settings.getSettings.get_int(key) ?? Settings.getSettings.get_default_value(key)?.get_int64();
 }
 
 function set_number(key: string, val: number): boolean {
@@ -34,10 +25,7 @@ function set_number(key: string, val: number): boolean {
 }
 
 function get_unsigned_number(key: string): number {
-    return (
-        Settings.getSettings.get_uint(key) ??
-        Settings.getSettings.get_default_value(key)?.get_uint64()
-    );
+    return Settings.getSettings.get_uint(key) ?? Settings.getSettings.get_default_value(key)?.get_uint64();
 }
 
 function set_unsigned_number(key: string, val: number): boolean {

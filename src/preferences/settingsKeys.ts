@@ -8,4 +8,6 @@ export const Keys = {
     PASSWORD: 'password',
     API_SOURCE: 'api-source',
     ACCESS_TOKEN: 'access-token',
+    LIBRE_LINK_API_URL: 'libre-link-api-url',
+    LIBRE_LINK_UP_VERSION: 'libre-link-up-version',
 };

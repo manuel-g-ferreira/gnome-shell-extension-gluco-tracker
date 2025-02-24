@@ -3,6 +3,7 @@ export default {
     tabWidth: 4,
     singleQuote: true,
     bracketSpacing: false,
+    printWidth: 120,
     overrides: [
         {
             files: ['*.json', '*.yml', '*.yaml'],
