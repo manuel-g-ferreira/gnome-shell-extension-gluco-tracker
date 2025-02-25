@@ -16,7 +16,7 @@ export const GeneralPage = GObject.registerClass(
         _init() {
             super._init({
                 title: _('General'),
-                icon_name: 'general-symbolic',
+                icon_name: 'window-symbolic',
                 name: 'GeneralPage',
             });
             this._settings = Settings.getSettings;

@@ -20,7 +20,7 @@ export const ConfigurationPage = GObject.registerClass(
         _init(): void {
             super._init({
                 title: _('User Preferences'),
-                icon_name: 'applications-symbolic',
+                icon_name: 'settings-symbolic',
                 name: 'ConfigurationPage',
             });
             this._settings = Settings.getSettings;
@@ -31,7 +31,6 @@ export const ConfigurationPage = GObject.registerClass(
             });
             this.add(apiGroup);
 
-            // Create radio buttons and group them.
             const radioLibrelink = new Gtk.CheckButton({
                 label: _('LibreLink'),
                 halign: Gtk.Align.START,
@@ -102,6 +101,7 @@ export const ConfigurationPage = GObject.registerClass(
             const loginButton = new Gtk.Button({label: _('Login')});
             loginButton.margin_top = 12;
             loginButton.margin_bottom = 12;
+            loginButton.add_css_class('suggested-action');
             credentialsGroup.add(loginButton);
 
             loginButton.connect('clicked', () => {

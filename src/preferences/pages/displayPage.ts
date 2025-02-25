@@ -20,7 +20,7 @@ export const DisplayPage = GObject.registerClass(
         _init() {
             super._init({
                 title: _('Display'),
-                icon_name: 'video-display-symbolic',
+                icon_name: 'display-symbolic',
                 name: 'DisplayPage',
             });
             this._settings = Settings.getSettings;
