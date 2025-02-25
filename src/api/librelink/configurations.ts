@@ -3,3 +3,12 @@ export enum LibreLinkUpEndpoints {
     Country = '/llu/config/country?country=DE',
     Connections = '/llu/connections',
 }
+
+export const DefaultHeaders = {
+    product: 'llu.android',
+    version: '4.7.0',
+    'accept-encoding': 'gzip',
+    'cache-control': 'no-cache',
+    connection: 'Keep-Alive',
+    'content-type': 'application/json',
+};

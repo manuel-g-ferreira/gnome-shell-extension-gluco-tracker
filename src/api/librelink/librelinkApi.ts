@@ -1,19 +1,18 @@
 'use strict';
 
-import GLib from 'gi://GLib';
 import Soup from 'gi://Soup';
 import {GlucoAPI} from '../glucoApi.js';
 import SettingsHelper from '../../preferences/settingsHelper.js';
 import {Keys} from '../../preferences/settingsKeys.js';
-import Gio from 'gi://Gio';
 import {LoginResponse, RedirectResponse, RegionalMapResponse, Response} from './types/responses.js';
-import {LibreLinkUpEndpoints} from './configurations.js';
+import {LibreLinkUpEndpoints, DefaultHeaders} from './configurations.js';
+import {get, post} from '../http.js';
 
 export class LibreLinkAPI implements GlucoAPI {
-    private _session: Soup.Session;
+    private readonly _session: Soup.Session = new Soup.Session();
+    private baseUrl: string = SettingsHelper.get_string(Keys.LIBRE_LINK_API_URL) || '';
 
     constructor() {
-        this._session = new Soup.Session();
         this._session.set_user_agent(
             'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36',
         );
@@ -22,10 +21,13 @@ export class LibreLinkAPI implements GlucoAPI {
     public async login(email: string, password: string): Promise<void> {
         try {
             type Response = LoginResponse | RedirectResponse;
-            const response = await this._fetcher<Response>(LibreLinkUpEndpoints.Login, {
-                method: 'POST',
-                body: JSON.stringify({email, password}),
-            });
+            const url = `${this.baseUrl}${LibreLinkUpEndpoints.Login}`;
+            const response = await post<Response>(
+                this._session,
+                url,
+                JSON.stringify({email, password}),
+                this.getDefaultHeaders(),
+            );
             if (response.status === 2) {
                 throw new Error(
                     'Invalid credentials. Please ensure that the email and password work with the LibreLinkUp app.',
@@ -34,13 +36,11 @@ export class LibreLinkAPI implements GlucoAPI {
             if (!response.data) {
                 throw new Error('No data returned from Libre Link Up API.');
             }
-            // Handle redirect response.
             if ('redirect' in response.data) {
                 const newApiUrl = await this.findRegion(response.data.region);
                 SettingsHelper.set_string(Keys.LIBRE_LINK_API_URL, newApiUrl);
                 return await this.login(email, password);
             }
-            // On success, store the access token.
             SettingsHelper.set_string(Keys.ACCESS_TOKEN, response.data.authTicket.token);
         } catch (err) {
             const error = err instanceof Error ? err : new Error(String(err));
@@ -50,7 +50,8 @@ export class LibreLinkAPI implements GlucoAPI {
 
     private async findRegion(region: string): Promise<string> {
         try {
-            const response = await this._fetcher<Response>(LibreLinkUpEndpoints.Country);
+            const url = `${this.baseUrl}${LibreLinkUpEndpoints.Country}`;
+            const response = await get<Response>(this._session, url, this.getDefaultHeaders());
             const data = response.data as RegionalMapResponse | undefined;
             const lslApi = data?.regionalMap[region]?.lslApi;
             if (!lslApi) {
@@ -64,69 +65,12 @@ export class LibreLinkAPI implements GlucoAPI {
         }
     }
 
-    private async _fetcher<T = Response>(
-        endpoint: string,
-        options: {method?: string; headers?: Record<string, string>; body?: string} = {},
-    ): Promise<T> {
-        const url = `${SettingsHelper.get_string(Keys.LIBRE_LINK_API_URL)}/${endpoint}`;
-        const message = Soup.Message.new(options.method ?? 'GET', url);
+    private getDefaultHeaders(customHeaders: Record<string, string> = {}): Record<string, string> {
         const accessToken = SettingsHelper.get_string(Keys.ACCESS_TOKEN);
-
         const defaultHeaders: Record<string, string> = {
+            ...DefaultHeaders,
             Authorization: accessToken ? `Bearer ${accessToken}` : '',
-            product: 'llu.android',
-            version: '4.7.0',
-            'accept-encoding': 'gzip',
-            'cache-control': 'no-cache',
-            connection: 'Keep-Alive',
-            'content-type': 'application/json',
         };
-
-        const headers = {...defaultHeaders, ...options.headers};
-        for (const key in headers) {
-            message.request_headers.append(key, headers[key]);
-        }
-
-        if (options.body) {
-            const bodyBytes = new TextEncoder().encode(options.body);
-            message.set_request_body_from_bytes('application/json', GLib.Bytes.new_take(bodyBytes));
-        }
-
-        return new Promise<T>((resolve, reject) => {
-            this._session.send_and_read_async(
-                message,
-                GLib.PRIORITY_DEFAULT,
-                null,
-                (session: Soup.Session | null, result: Gio.AsyncResult) => {
-                    try {
-                        const responseBody = session!.send_and_read_finish(result);
-                        console.log(`Response from ${url}: ${responseBody.get_data()}`);
-                        const data = responseBody.get_data() as Uint8Array;
-                        const responseText = new TextDecoder('utf-8').decode(data);
-
-                        // Check HTTP status.
-                        if (message.get_status() !== Soup.Status.OK) {
-                            const errorPayload = JSON.parse(responseText);
-                            const errorMessage = errorPayload?.message || JSON.stringify(errorPayload, null, 2);
-                            if (message.get_status() === 429) {
-                                reject(
-                                    new Error(`Too many requests. Please wait before trying again. ${errorMessage}`),
-                                );
-                            } else {
-                                reject(
-                                    new Error(
-                                        `Error fetching data from Libre Link Up API with status ${message.get_status()}. ${errorMessage}`,
-                                    ),
-                                );
-                            }
-                            return;
-                        }
-                        resolve(JSON.parse(responseText) as T);
-                    } catch (err) {
-                        reject(new Error(`Error processing request to Libre Link Up API. ${err}`));
-                    }
-                },
-            );
-        });
+        return {...defaultHeaders, ...customHeaders};
     }
 }
