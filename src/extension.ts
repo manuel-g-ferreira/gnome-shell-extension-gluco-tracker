@@ -1,24 +1,18 @@
-import St from 'gi://St';
-
 import {Extension} from 'resource:///org/gnome/shell/extensions/extension.js';
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
-import * as PanelMenu from 'resource:///org/gnome/shell/ui/panelMenu.js';
+import GlucoseIndicator from "./indicator/indicator.js";
+import Settings from "./preferences/settings.js";
 
 export default class GlucoTracker extends Extension {
-    private _indicator: PanelMenu.Button | null = null;
+
+    _indicator: InstanceType<typeof GlucoseIndicator> | null = null;
 
     enable(): void {
-        // Create a panel button
-        this._indicator = new PanelMenu.Button(0.0, this.metadata.name, false);
+        Settings.initialize(this.getSettings());
 
-        // Add an icon
-        const icon = new St.Icon({
-            icon_name: 'face-laugh-symbolic',
-            style_class: 'system-status-icon',
-        });
-        this._indicator.add_child(icon);
+        this._indicator = new GlucoseIndicator(0.0, this.metadata.name, false);
 
-        // Add the indicator to the panel
+        // Add the indicator to the panel.
         Main.panel.addToStatusArea(this.uuid, this._indicator);
     }
 

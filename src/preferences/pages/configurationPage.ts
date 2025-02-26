@@ -104,6 +104,11 @@ export const ConfigurationPage = GObject.registerClass(
             loginButton.add_css_class('suggested-action');
             credentialsGroup.add(loginButton);
 
+            const statusLabel = new Gtk.Label({ label: '' });
+            statusLabel.halign = Gtk.Align.START;
+            statusLabel.margin_top = 10;
+            credentialsGroup.add(statusLabel);
+
             loginButton.connect('clicked', () => {
                 const username = SettingsHelper.get_string(Keys.USERNAME);
                 const password = SettingsHelper.get_string(Keys.PASSWORD);
@@ -111,10 +116,10 @@ export const ConfigurationPage = GObject.registerClass(
                 const api = createGlucoAPI();
                 api.login(username, password)
                     .then(() => {
-                        log('Login successful');
+                        statusLabel.set_text("Login successful");
                     })
                     .catch((err) => {
-                        log('Login failed:', err);
+                        statusLabel.set_text("Login failed: " + err.message);
                     });
             });
         }

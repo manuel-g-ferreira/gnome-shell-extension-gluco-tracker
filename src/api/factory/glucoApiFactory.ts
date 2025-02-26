@@ -1,9 +1,9 @@
 // factory/glucoApiFactory.ts
 import {GlucoAPI} from '../glucoApi.js';
-import Settings from '../../preferences/settings.js';
 import {Keys} from '../../preferences/settingsKeys.js';
 import {LibreLinkAPI} from '../librelink/librelinkApi.js';
 import {DexcomAPI} from '../dexcom/dexcomApi.js';
+import SettingsHelper from "../../preferences/settingsHelper.js";
 
 /**
  * Creates an instance of GlucoAPI based on the user's settings.
@@ -11,8 +11,7 @@ import {DexcomAPI} from '../dexcom/dexcomApi.js';
  * and a DexcomAPI if it's 1.
  */
 export function createGlucoAPI(): GlucoAPI {
-    const settings = Settings.getSettings;
-    const selectedApi = settings.get_int(Keys.API_SOURCE);
+    const selectedApi = SettingsHelper.get_number(Keys.API_SOURCE);
 
     if (selectedApi === 0) {
         return new LibreLinkAPI();
