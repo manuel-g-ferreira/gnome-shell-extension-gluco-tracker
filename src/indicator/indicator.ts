@@ -16,12 +16,9 @@ const GlucoseIndicator = GObject.registerClass(
         _init(): void {
             this._currentValue = 0;
             this._prevValue = 0;
-
-            // Create a label that will display the glucose reading and trend.
             this._label = new St.Label({ text: "" });
             this.add_child(this._label);
 
-            // Perform the initial update.
             this._update();
 
             GLib.timeout_add_seconds(GLib.PRIORITY_DEFAULT, 60, () => {
@@ -30,9 +27,6 @@ const GlucoseIndicator = GObject.registerClass(
             });
         }
 
-        /**
-         * Updates the indicator label with the latest glucose reading.
-         */
         private _update(): void {
             const api = createGlucoAPI();
             api.read()

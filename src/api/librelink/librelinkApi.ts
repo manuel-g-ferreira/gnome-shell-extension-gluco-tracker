@@ -29,7 +29,6 @@ export class LibreLinkAPI implements GlucoAPI {
             JSON.stringify({email, password}),
             this.getDefaultHeaders(),
         );
-        console.log(response);
         if (response.status === 2) {
             throw new Error('Invalid credentials');
         }

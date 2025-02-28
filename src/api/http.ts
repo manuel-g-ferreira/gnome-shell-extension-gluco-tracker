@@ -4,13 +4,6 @@ import GLib from 'gi://GLib';
 import Soup from 'gi://Soup?version=3.0';
 import Gio from 'gi://Gio';
 
-/**
- * Performs a GET request using Soup.
- * @param session - The Soup.Session to use.
- * @param url - The full URL to send the request to.
- * @param headers - Optional headers to include in the request.
- * @returns A promise resolving to the parsed JSON response.
- */
 export function get<T>(session: Soup.Session, url: string, headers: Record<string, string> = {}): Promise<T> {
     const message = Soup.Message.new('GET', url);
     for (const key in headers) {
@@ -49,14 +42,6 @@ export function get<T>(session: Soup.Session, url: string, headers: Record<strin
     });
 }
 
-/**
- * Performs a POST request using Soup.
- * @param session - The Soup.Session to use.
- * @param url - The full URL to send the request to.
- * @param body - The stringified body payload.
- * @param headers - Optional headers to include in the request.
- * @returns A promise resolving to the parsed JSON response.
- */
 export function post<T>(
     session: Soup.Session,
     url: string,
