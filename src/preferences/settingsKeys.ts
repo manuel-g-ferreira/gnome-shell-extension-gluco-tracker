@@ -10,4 +10,6 @@ export const Keys = {
     ACCESS_TOKEN: 'access-token',
     LIBRE_LINK_API_URL: 'libre-link-api-url',
     LIBRE_LINK_UP_VERSION: 'libre-link-up-version',
+    ACCOUNT_ID: 'account-id',
+    REFRESH_INTERVAL: 'refresh-interval',
 };

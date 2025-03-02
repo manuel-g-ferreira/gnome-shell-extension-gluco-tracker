@@ -6,7 +6,7 @@ export enum LibreLinkUpEndpoints {
 
 export const DefaultHeaders = {
     product: 'llu.android',
-    version: '4.7.0',
+    version: '4.12.0',
     'accept-encoding': 'gzip',
     'cache-control': 'no-cache',
     connection: 'Keep-Alive',

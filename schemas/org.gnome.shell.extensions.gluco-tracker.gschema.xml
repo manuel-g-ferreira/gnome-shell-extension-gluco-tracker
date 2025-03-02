@@ -50,5 +50,25 @@
             <summary>LibreLink API URL</summary>
             <description>The URL for the LibreLink API.</description>
         </key>
+        <key name="account-id" type="s">
+            <default>''</default>
+            <summary>Account Id</summary>
+            <description>The account id.</description>
+        </key>
+        <key name="refresh-interval" type="i">
+            <default>1</default>
+            <summary>Refresh Interval</summary>
+            <description>How often to refresh glucose data (in minutes)</description>
+        </key>
+        <key name="low-threshold" type="d">
+            <default>70.0</default>
+            <summary>Low Glucose Threshold</summary>
+            <description>Threshold for low glucose warning (in mg/dL)</description>
+        </key>
+        <key name="high-threshold" type="d">
+            <default>180.0</default>
+            <summary>High Glucose Threshold</summary>
+            <description>Threshold for high glucose warning (in mg/dL)</description>
+        </key>
     </schema>
 </schemalist>

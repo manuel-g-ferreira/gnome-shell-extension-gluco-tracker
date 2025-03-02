@@ -24,7 +24,7 @@ export interface GlucoseReading {
     measurementColor: MeasurementColor;
     isHigh: boolean;
     isLow: boolean;
-    trend: string;
+    trend: number;
 }
 
 export interface Ticket {

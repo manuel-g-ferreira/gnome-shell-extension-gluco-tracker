@@ -8,11 +8,13 @@ import {ConnectionResponse, LoginResponse, RedirectResponse, RegionalMapResponse
 import {DefaultHeaders, LibreLinkUpEndpoints} from './configurations.js';
 import {get, post} from '../http.js';
 import {GlucoseReading, RawGlucoseReading} from './types/reading.js';
+import GLib from 'gi://GLib';
 
 export class LibreLinkAPI implements GlucoAPI {
     private readonly _session: Soup.Session = new Soup.Session();
     private baseUrl: string = SettingsHelper.get_string(Keys.LIBRE_LINK_API_URL) || '';
     private patientId: string = '';
+    private accessToken: string = '';
 
     constructor() {
         this._session.set_user_agent(
@@ -21,9 +23,9 @@ export class LibreLinkAPI implements GlucoAPI {
     }
 
     public async login(email: string, password: string): Promise<void> {
-        type Response = LoginResponse | RedirectResponse;
+        type Resp = LoginResponse | RedirectResponse;
         const url = `${this.baseUrl}${LibreLinkUpEndpoints.Login}`;
-        const response = await post<Response>(
+        const response = await post<Resp>(
             this._session,
             url,
             JSON.stringify({email, password}),
@@ -43,7 +45,10 @@ export class LibreLinkAPI implements GlucoAPI {
             SettingsHelper.set_string(Keys.LIBRE_LINK_API_URL, newApiUrl);
             return await this.login(email, password);
         }
-        SettingsHelper.set_string(Keys.ACCESS_TOKEN, response.data.authTicket.token);
+        this.accessToken = response.data.authTicket.token;
+        SettingsHelper.set_string(Keys.ACCESS_TOKEN, this.accessToken);
+        // Also store the account ID.
+        SettingsHelper.set_string(Keys.ACCOUNT_ID, response.data.user.id);
     }
 
     public async read(): Promise<GlucoseReading> {
@@ -56,8 +61,8 @@ export class LibreLinkAPI implements GlucoAPI {
                 measurementColor: raw.MeasurementColor,
                 isHigh: raw.isHigh,
                 isLow: raw.isLow,
-                trend: raw.TrendArrow !== undefined ? raw.TrendArrow.toString() : '→',
-            } as GlucoseReading;
+                trend: raw.TrendArrow !== undefined ? raw.TrendArrow : 0,
+            };
         } catch (err) {
             const error = err instanceof Error ? err : new Error(String(err));
             console.error(error);
@@ -74,8 +79,8 @@ export class LibreLinkAPI implements GlucoAPI {
                 measurementColor: item.MeasurementColor,
                 isHigh: item.isHigh,
                 isLow: item.isLow,
-                trend: item.TrendArrow !== undefined ? item.TrendArrow.toString() : '→',
-            }) as GlucoseReading);
+                trend: item.TrendArrow !== undefined ? item.TrendArrow : 0,
+            }));
         } catch (err) {
             const error = err instanceof Error ? err : new Error(String(err));
             console.error(error);
@@ -86,8 +91,16 @@ export class LibreLinkAPI implements GlucoAPI {
     private async fetchReading(): Promise<ConnectionResponse> {
         try {
             const patientId = await this.getPatientId();
+
+            // Build a custom header with the hashed account ID.
+            const accountId = SettingsHelper.get_string(Keys.ACCOUNT_ID);
+            const accountIdHeader = {
+                'Account-Id': accountId ? await this.encryptSha256(accountId) : '',
+            };
+
+            const headers = {...this.getDefaultHeaders(), ...accountIdHeader};
             const url = `${LibreLinkUpEndpoints.Connections}/${patientId}/graph`;
-            return await get<ConnectionResponse>(this._session, `${this.baseUrl}${url}`, this.getDefaultHeaders());
+            return await get<ConnectionResponse>(this._session, `${this.baseUrl}${url}`, headers);
         } catch (err) {
             const error = err instanceof Error ? err : new Error(String(err));
             console.error(error);
@@ -115,7 +128,12 @@ export class LibreLinkAPI implements GlucoAPI {
     private async fetchConnections(): Promise<Response> {
         try {
             const url = `${LibreLinkUpEndpoints.Connections}`;
-            const response = await get<Response>(this._session, `${this.baseUrl}${url}`, this.getDefaultHeaders());
+            const accountId = SettingsHelper.get_string(Keys.ACCOUNT_ID);
+            const accountIdHeader = {
+                'Account-Id': accountId ? await this.encryptSha256(accountId) : '',
+            };
+            const headers = {...this.getDefaultHeaders(), ...accountIdHeader};
+            const response = await get<Response>(this._session, `${this.baseUrl}${url}`, headers);
             if (response.data && Array.isArray(response.data) && response.data.length > 0) {
                 return response;
             } else {
@@ -129,8 +147,8 @@ export class LibreLinkAPI implements GlucoAPI {
     }
 
     private async findRegion(region: string): Promise<string> {
-        const url = `${this.baseUrl}${LibreLinkUpEndpoints.Country}`;
-        const response = await get<Response>(this._session, url, this.getDefaultHeaders());
+        const url = `${LibreLinkUpEndpoints.Country}`;
+        const response = await get<Response>(this._session, `${this.baseUrl}${url}`, this.getDefaultHeaders());
         const data = response.data as RegionalMapResponse | undefined;
         const lslApi = data?.regionalMap[region]?.lslApi;
         if (!lslApi) {
@@ -147,5 +165,11 @@ export class LibreLinkAPI implements GlucoAPI {
             Authorization: accessToken ? `Bearer ${accessToken}` : '',
         };
         return {...defaultHeaders, ...customHeaders};
+    }
+
+    private encryptSha256(data: string): string {
+        const checksum = GLib.Checksum.new(GLib.ChecksumType.SHA256);
+        checksum.update(data);
+        return checksum.get_string();
     }
 }

@@ -1,5 +1,5 @@
 import {GlucoAPI} from '../glucoApi.js';
-import {GlucoseReading} from "../librelink/types/reading.js";
+import {GlucoseReading} from '../librelink/types/reading.js';
 
 export class DexcomAPI implements GlucoAPI {
     async login(): Promise<void> {
