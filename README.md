@@ -46,6 +46,9 @@ You can test the extension using the following command:
 ```
 
 #### X11
+```bash
+   npm run dev:x11
+```
 
 ## Mentions
 
