@@ -1,0 +1,106 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-03-04 17:33+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: src/preferences/pages/configurationPage.ts:22
+msgid "User Preferences"
+msgstr ""
+
+#: src/preferences/pages/configurationPage.ts:30
+msgid "Glucose Tracker"
+msgstr ""
+
+#: src/preferences/pages/configurationPage.ts:35
+msgid "LibreLink"
+msgstr ""
+
+#: src/preferences/pages/configurationPage.ts:39
+msgid "Dexcom"
+msgstr ""
+
+#: src/preferences/pages/configurationPage.ts:88
+msgid "User Credentials"
+msgstr ""
+
+#: src/preferences/pages/configurationPage.ts:90
+msgid "Username"
+msgstr ""
+
+#: src/preferences/pages/configurationPage.ts:91
+msgid "Password"
+msgstr ""
+
+#: src/preferences/pages/configurationPage.ts:99
+msgid "Login"
+msgstr ""
+
+#: src/preferences/pages/configurationPage.ts:117
+msgid "Login successful"
+msgstr ""
+
+#: src/preferences/pages/configurationPage.ts:120
+msgid "Login failed"
+msgstr ""
+
+#: src/preferences/pages/displayPage.ts:21
+msgid "Display Preferences"
+msgstr ""
+
+#: src/preferences/pages/displayPage.ts:35
+msgid "Status indicator position"
+msgstr ""
+
+#: src/preferences/pages/displayPage.ts:36
+msgid "The position relative to other items"
+msgstr ""
+
+#: src/preferences/pages/generalPage.ts:21
+msgid "General"
+msgstr ""
+
+#: src/preferences/pages/generalPage.ts:28
+msgid "Alarms and Notifications"
+msgstr ""
+
+#: src/preferences/pages/generalPage.ts:34
+msgid "Low Glucose Threshold"
+msgstr ""
+
+#: src/preferences/pages/generalPage.ts:35
+msgid "Threshold for low glucose warning (in mg/dL)"
+msgstr ""
+
+#: src/preferences/pages/generalPage.ts:52
+msgid "High Glucose Threshold"
+msgstr ""
+
+#: src/preferences/pages/generalPage.ts:53
+msgid "Threshold for high glucose warning (in mg/dL)"
+msgstr ""
+
+#: src/preferences/pages/generalPage.ts:74
+msgid "Update Interval"
+msgstr ""
+
+#: src/preferences/pages/generalPage.ts:81
+msgid "Update Refresh Interval"
+msgstr ""
+
+#: src/preferences/pages/generalPage.ts:82
+msgid "Interval for updating the glucose value (in minutes)"
+msgstr ""

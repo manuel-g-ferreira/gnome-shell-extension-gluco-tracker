@@ -1,0 +1,42 @@
+{
+  "private": true,
+  "license": "LGPL-3.0-or-later",
+  "scripts": {
+    "clean": "rm -rf dist",
+    "clean:schema": "rm -rf dist/schemas/*.compiled",
+    "build:schema": "mkdir -p dist/schemas && glib-compile-schemas schemas --targetdir=dist/schemas",
+    "tsc": "tsc",
+    "copy:metadata": "cp metadata.json dist/",
+    "build": "npm run clean && npm run build:schema && npm run tsc && npm run copy:metadata",
+    "clean:package": "rm -rf ./dist/gluco-tracker@gluco.dev.zip",
+    "build:package": "LOG_LEVEL=info rm -f gluco-tracker@gluco.dev.zip && npm run clean:package && npm run build && cd dist && zip -qr ../gluco-tracker@gluco.dev.zip *",
+    "install:extension": "mkdir -p ~/.local/share/gnome-shell/extensions/gluco-tracker@gluco.dev && cp -r dist/* ~/.local/share/gnome-shell/extensions/gluco-tracker@gluco.dev/",
+    "wayland-session": "dbus-run-session -- env MUTTER_DEBUG_NUM_DUMMY_MONITORS=1 MUTTER_DEBUG_DUMMY_MODE_SPECS=1024x768 gnome-shell --nested --wayland",
+    "dev:wayland": "LOG_LEVEL=debug npm run build && npm run install:extension && npm run wayland-session",
+    "build:translations": "for file in $(ls po/*.po); do mkdir -p resources/locale/$(basename $file .po)/LC_MESSAGES; msgfmt -c $file -o resources/locale/$(basename $file .po)/LC_MESSAGES/gluco-tracker.mo; done",
+    "create:translations": "xgettext --from-code=UTF-8 --output=po/main.pot -j --language=javascript --force-po dist/prefs.js dist/extension.js",
+    "merge:translations": "for file in $(ls po/*.po); do msgmerge -U $file po/main.pot --backup=none; done",
+    "lint": "eslint . --ignore-pattern dist",
+    "lint:fix": "eslint . --fix",
+    "prettier:check": "prettier --check \"**/*.{ts,scss}\"",
+    "prettier:fix": "prettier --write \"**/*.{ts,scss}\""
+  },
+  "type": "module",
+  "devDependencies": {
+    "@eslint/js": "^9.6.0",
+    "@girs/gjs": "^4.0.0-beta.14",
+    "@girs/gnome-shell": "^46.0.2",
+    "@types/eslint__js": "^8.42.3",
+    "esbuild": "^0.25.0",
+    "esbuild-plugin-tsc": "^0.4.0",
+    "eslint": "^8.57.1",
+    "eslint-plugin-jsdoc": "^50.6.3",
+    "globals": "^15.6.0",
+    "prettier": "^3.2.5",
+    "typescript": "^5.7.3",
+    "typescript-eslint": "^7.14.1"
+  },
+  "dependencies": {
+    "@girs/soup-3.0": "^3.6.4-4.0.0-beta.21"
+  }
+}

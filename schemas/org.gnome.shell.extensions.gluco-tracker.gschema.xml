@@ -1,0 +1,74 @@
+<schemalist>
+    <schema id="org.gnome.shell.extensions.gluco-tracker" path="/org/gnome/shell/extensions/gluco-tracker/">
+        <key name="prefs-default-width" type="i">
+            <default>600</default>
+            <summary>Default Preferences Window Width</summary>
+            <description>The default width for the preferences window.</description>
+        </key>
+        <key name="prefs-default-height" type="i">
+            <default>400</default>
+            <summary>Default Preferences Window Height</summary>
+            <description>The default height for the preferences window.</description>
+        </key>
+        <key name="indicator-position" type="u">
+            <default>0</default>
+            <summary>Indicator Position</summary>
+            <description>The position of the indicator in the panel.</description>
+        </key>
+        <key name="indicator-position-index" type="u">
+            <default>0</default>
+            <summary>Indicator Position Index</summary>
+            <description>The index of the indicator relative to other items.</description>
+        </key>
+        <key name="indicator-position-max" type="u">
+            <default>5</default>
+            <summary>Indicator Position Maximum</summary>
+            <description>The maximum allowed value for the indicator position.</description>
+        </key>
+        <key name="username" type="s">
+            <default>''</default>
+            <summary>Username</summary>
+            <description>The username for your account.</description>
+        </key>
+        <key name="password" type="s">
+            <default>''</default>
+            <summary>Password</summary>
+            <description>The password for your account.</description>
+        </key>
+        <key name="api-source" type="i">
+            <default>-1</default>
+            <summary>API Source</summary>
+            <description>0 for LibreLink, 1 for Dexcom, -1 for none selected.</description>
+        </key>
+        <key name="access-token" type="s">
+            <default>''</default>
+            <summary>Access Token</summary>
+            <description>The access token for your account.</description>
+        </key>
+        <key name="libre-link-api-url" type="s">
+            <default>'https://api-us.libreview.io'</default>
+            <summary>LibreLink API URL</summary>
+            <description>The URL for the LibreLink API.</description>
+        </key>
+        <key name="account-id" type="s">
+            <default>''</default>
+            <summary>Account Id</summary>
+            <description>The account id.</description>
+        </key>
+        <key name="refresh-interval" type="i">
+            <default>1</default>
+            <summary>Refresh Interval</summary>
+            <description>How often to refresh glucose data (in minutes)</description>
+        </key>
+        <key name="low-threshold" type="d">
+            <default>70.0</default>
+            <summary>Low Glucose Threshold</summary>
+            <description>Threshold for low glucose warning (in mg/dL)</description>
+        </key>
+        <key name="high-threshold" type="d">
+            <default>180.0</default>
+            <summary>High Glucose Threshold</summary>
+            <description>Threshold for high glucose warning (in mg/dL)</description>
+        </key>
+    </schema>
+</schemalist>

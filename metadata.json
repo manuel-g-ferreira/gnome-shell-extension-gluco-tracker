@@ -1,0 +1,12 @@
+{
+  "version": "0.0.1",
+  "name": "Gluco Tracker",
+  "description": "Displays live glucose values with trend in the top bar and provides API/provider configuration.",
+  "uuid": "gluco-tracker@gluco.dev",
+  "url": "https://github.com/manuel-g-ferreira/gnome-shell-extension-gluco-tracker",
+  "settings-schema": "org.gnome.shell.extensions.gluco-tracker",
+  "gettext-domain": "gluco-tracker",
+  "shell-version": [
+    "45", "46", "47"
+  ]
+}
