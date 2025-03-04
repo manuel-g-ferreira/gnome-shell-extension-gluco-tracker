@@ -13,6 +13,8 @@
     "install:extension": "mkdir -p ~/.local/share/gnome-shell/extensions/gluco-tracker@gluco.dev && cp -r dist/* ~/.local/share/gnome-shell/extensions/gluco-tracker@gluco.dev/",
     "wayland-session": "dbus-run-session -- env MUTTER_DEBUG_NUM_DUMMY_MONITORS=1 MUTTER_DEBUG_DUMMY_MODE_SPECS=1024x768 gnome-shell --nested --wayland",
     "dev:wayland": "LOG_LEVEL=debug npm run build && npm run install:extension && npm run wayland-session",
+    "x11-session": "gdbus call --session --dest org.gnome.Shell --object-path /org/gnome/Shell --method org.gnome.Shell.Eval 'Meta.restart(\"Restarting…\")'",
+    "dev:x11": "npm run build:package && npm run install:extension && npm run x11-session",
     "build:translations": "for file in $(ls po/*.po); do mkdir -p resources/locale/$(basename $file .po)/LC_MESSAGES; msgfmt -c $file -o resources/locale/$(basename $file .po)/LC_MESSAGES/gluco-tracker.mo; done",
     "create:translations": "xgettext --from-code=UTF-8 --output=po/main.pot -j --language=javascript --force-po dist/prefs.js dist/extension.js",
     "merge:translations": "for file in $(ls po/*.po); do msgmerge -U $file po/main.pot --backup=none; done",

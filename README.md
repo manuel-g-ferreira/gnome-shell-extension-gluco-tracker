@@ -23,20 +23,30 @@ A GNOME Shell extension for displaying real-time glucose readings from CGM syste
 #### Manual installation
 
 1. Clone the repository:
-   ```bash
+```bash
    git clone https://github.com/manuel-g-ferreira/gnome-shell-extension-gluco-tracker.git
-    ```
+```
 2. cd into the cloned repository:
-   ```bash
+```bash
    cd gnome-shell-extension-gluco-tracker
-   ```
+```
 3. Run the installation script:
-   ```bash
+```bash
    npm run install:extension
-    ```
-4. Enjoy!
+```
+4. Enjoy! 🎉
 
+## Testing
+
+You can test the extension using the following command:
+
+#### Wayland
+```bash
+   npm run dev:wayland
+```
+
+#### X11
 
 ## Mentions
 
-The librelink integration is based on the work of [DRFR0ST](https://github.com/DRFR0ST): [github repository](https://github.com/DRFR0ST/libre-link-unofficial-api.git)
+The librelink integration is based on the work of [DRFR0ST](https://github.com/DRFR0ST): [Github repository](https://github.com/DRFR0ST/libre-link-unofficial-api.git)
