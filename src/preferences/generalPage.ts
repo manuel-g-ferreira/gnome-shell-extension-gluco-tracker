@@ -4,10 +4,10 @@ import Adw from 'gi://Adw';
 import GObject from 'gi://GObject';
 import {gettext as _} from 'resource:///org/gnome/Shell/Extensions/js/extensions/prefs.js';
 import Gio from 'gi://Gio';
-import Settings from '../settings.js';
+import Settings from '../settings/settings.js';
 import Gtk from 'gi://Gtk';
-import SettingsHelper from '../settingsHelper.js';
-import {Keys} from '../settingsKeys.js';
+import SettingsHelper from '../settings/helper.js';
+import {Keys} from '../settings/keys.js';
 
 export const GeneralPage = GObject.registerClass(
     {

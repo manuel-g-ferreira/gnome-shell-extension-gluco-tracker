@@ -5,8 +5,8 @@ import St from 'gi://St';
 import * as PanelMenu from 'resource:///org/gnome/shell/ui/panelMenu.js';
 import {GlucoseReading} from '../api/librelink/types/reading.js';
 import {createGlucoAPI} from '../api/factory/glucoApiFactory.js';
-import SettingsHelper from '../preferences/settingsHelper.js';
-import {Keys} from '../preferences/settingsKeys.js';
+import SettingsHelper from '../settings/helper.js';
+import {Keys} from '../settings/keys.js';
 import {TimeScheduler} from './timeScheduler.js';
 import {TrendFormatter} from './trendFormatter.js';
 
@@ -47,6 +47,11 @@ export default GObject.registerClass(
         private _update(): void {
             if (!this._isApiConfigured()) {
                 this._label.set_text('Not configured');
+                return;
+            }
+
+            if (SettingsHelper.get_string(Keys.ACCESS_TOKEN) === '') {
+                this._label.set_text('Log in');
                 return;
             }
 

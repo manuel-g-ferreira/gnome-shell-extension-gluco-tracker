@@ -5,10 +5,10 @@ import GObject from 'gi://GObject';
 import Gtk from 'gi://Gtk';
 import Gio from 'gi://Gio';
 import {gettext as _} from 'resource:///org/gnome/Shell/Extensions/js/extensions/prefs.js';
-import Settings from '../settings.js';
-import {Keys} from '../settingsKeys.js';
-import SettingsHelper from '../settingsHelper.js';
-import {createGlucoAPI} from '../../api/factory/glucoApiFactory.js';
+import Settings from '../settings/settings.js';
+import {Keys} from '../settings/keys.js';
+import SettingsHelper from '../settings/helper.js';
+import {createGlucoAPI} from '../api/factory/glucoApiFactory.js';
 
 export const ConfigurationPage = GObject.registerClass(
     {
@@ -117,7 +117,7 @@ export const ConfigurationPage = GObject.registerClass(
                         statusLabel.set_text('Login successful');
                     })
                     .catch((err) => {
-                        statusLabel.set_text('Login failed: ' + err.message);
+                        statusLabel.set_text(err.message);
                     });
             });
         }

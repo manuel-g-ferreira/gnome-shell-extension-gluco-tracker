@@ -32,6 +32,13 @@ function set_unsigned_number(key: string, val: number): boolean {
     return Settings.getSettings.set_uint(key, val);
 }
 
+function get_enum(key: string): number {
+    return Settings.getSettings.get_enum(key) ?? Settings.getSettings.get_default_value(key)?.get_string()[0];
+}
+function set_enum(key: string, val: number): boolean {
+    return Settings.getSettings.set_enum(key, val);
+}
+
 export default {
     get_string,
     set_string,
@@ -41,4 +48,6 @@ export default {
     set_number,
     get_unsigned_number,
     set_unsigned_number,
+    get_enum,
+    set_enum,
 };

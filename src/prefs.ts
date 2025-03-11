@@ -1,12 +1,12 @@
 import Adw from 'gi://Adw';
 
 import {ExtensionPreferences} from 'resource:///org/gnome/Shell/Extensions/js/extensions/prefs.js';
-import Settings from './preferences/settings.js';
-import {Keys} from './preferences/settingsKeys.js';
-import SettingsHelper from './preferences/settingsHelper.js';
-import {GeneralPage} from './preferences/pages/generalPage.js';
-import {DisplayPage} from './preferences/pages/displayPage.js';
-import {ConfigurationPage} from './preferences/pages/configurationPage.js';
+import Settings from './settings/settings.js';
+import {Keys} from './settings/keys.js';
+import SettingsHelper from './settings/helper.js';
+import {GeneralPage} from './preferences/generalPage.js';
+import {DisplayPage} from './preferences/displayPage.js';
+import {ConfigurationPage} from './preferences/configurationPage.js';
 
 export default class GlucoTrackerPrefs extends ExtensionPreferences {
     fillPreferencesWindow(window: Adw.PreferencesWindow): Promise<void> {
@@ -32,7 +32,7 @@ export default class GlucoTrackerPrefs extends ExtensionPreferences {
                 SettingsHelper.set_number(Keys.DEFAULT_WIDTH, currentWidth);
                 SettingsHelper.set_number(Keys.DEFAULT_HEIGHT, currentHeight);
             }
-            window.destroy();
+            Settings.destroy();
         });
 
         return Promise.resolve();

@@ -6,7 +6,6 @@ export class TimeScheduler {
     schedule(intervalMinutes: number, callback: () => void, rescheduleCallback: () => void): void {
         this.clear();
 
-        // Get current time and calculate next update time
         const now = GLib.DateTime.new_now_local();
         if (!now) {
             this._setupFallbackTimer(60, callback, rescheduleCallback);
@@ -19,10 +18,8 @@ export class TimeScheduler {
             return;
         }
 
-        // Calculate seconds until the next update
         const secondsUntilNextUpdate = nextUpdateTime.difference(now) / 1000000;
 
-        // Schedule the update
         this._timeout = GLib.timeout_add_seconds(GLib.PRIORITY_DEFAULT, secondsUntilNextUpdate, () => {
             callback();
             rescheduleCallback();
@@ -43,7 +40,6 @@ export class TimeScheduler {
             return null;
         }
 
-        // Round to the exact minute
         return GLib.DateTime.new(
             nextUpdate.get_timezone(),
             nextUpdate.get_year(),

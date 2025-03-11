@@ -1,10 +1,10 @@
 import {Extension} from 'resource:///org/gnome/shell/extensions/extension.js';
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 import * as PanelMenu from 'resource:///org/gnome/shell/ui/panelMenu.js';
-import Settings from './preferences/settings.js';
+import Settings from './settings/settings.js';
 import GlucoseIndicator from './indicator/indicator.js';
-import SettingsHelper from './preferences/settingsHelper.js';
-import {Keys} from './preferences/settingsKeys.js';
+import SettingsHelper from './settings/helper.js';
+import {Keys} from './settings/keys.js';
 
 export default class GlucoTracker extends Extension {
     _indicator: PanelMenu.Button | null = null;
