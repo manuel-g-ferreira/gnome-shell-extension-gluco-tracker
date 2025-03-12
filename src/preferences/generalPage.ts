@@ -68,51 +68,35 @@ export const GeneralPage = GObject.registerClass(
 
             const enableAlarmRow = new Adw.SwitchRow({
                 title: _('Enable Glucose Alarms'),
-                subtitle: _('Enable alarm notifications for glucose thresholds')
+                subtitle: _('Enable alarm notifications for glucose thresholds'),
             });
             alarmGroup.add(enableAlarmRow);
-            this._settings.bind(
-                Keys.ENABLE_ALARM,
-                enableAlarmRow,
-                'active',
-                Gio.SettingsBindFlags.DEFAULT
-            );
+            this._settings.bind(Keys.ENABLE_ALARM, enableAlarmRow, 'active', Gio.SettingsBindFlags.DEFAULT);
 
             const enableSoundRow = new Adw.SwitchRow({
                 title: _('Enable Sound Alerts'),
-                subtitle: _('Play sound when glucose is outside thresholds')
+                subtitle: _('Play sound when glucose is outside thresholds'),
             });
             alarmGroup.add(enableSoundRow);
-            this._settings.bind(
-                Keys.ENABLE_SOUND,
-                enableSoundRow,
-                'active',
-                Gio.SettingsBindFlags.DEFAULT
-            );
+            this._settings.bind(Keys.ENABLE_SOUND, enableSoundRow, 'active', Gio.SettingsBindFlags.DEFAULT);
 
             const enableNotificationRow = new Adw.SwitchRow({
                 title: _('Show Notifications'),
-                subtitle: _('Display notification when glucose is outside thresholds')
+                subtitle: _('Display notification when glucose is outside thresholds'),
             });
             alarmGroup.add(enableNotificationRow);
             this._settings.bind(
                 Keys.ENABLE_NOTIFICATION,
                 enableNotificationRow,
                 'active',
-                Gio.SettingsBindFlags.DEFAULT
+                Gio.SettingsBindFlags.DEFAULT,
             );
 
             const soundRow = new Adw.EntryRow({
                 title: _('Alarm Sound'),
-
             });
             alarmGroup.add(soundRow);
-            this._settings.bind(
-                Keys.ALARM_SOUND,
-                soundRow,
-                'text',
-                Gio.SettingsBindFlags.DEFAULT
-            );
+            this._settings.bind(Keys.ALARM_SOUND, soundRow, 'text', Gio.SettingsBindFlags.DEFAULT);
 
             const updateGroup = new Adw.PreferencesGroup({
                 title: _('Update Interval'),
