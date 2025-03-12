@@ -29,7 +29,6 @@ export const GeneralPage = GObject.registerClass(
             });
             this.add(alarmGroup);
 
-            // Create a SpinRow for low threshold.
             const lowThresholdRow = new Adw.SpinRow({
                 title: _('Low Glucose Threshold'),
                 subtitle: _('Threshold for low glucose warning (in mg/dL)'),
@@ -44,10 +43,8 @@ export const GeneralPage = GObject.registerClass(
             });
             alarmGroup.add(lowThresholdRow);
 
-            // Bind the SpinRow using this._settings.bind.
             this._settings.bind(Keys.LOW_THRESHOLD, lowThresholdRow.adjustment, 'value', Gio.SettingsBindFlags.DEFAULT);
 
-            // Create a SpinRow for high threshold.
             const highThresholdRow = new Adw.SpinRow({
                 title: _('High Glucose Threshold'),
                 subtitle: _('Threshold for high glucose warning (in mg/dL)'),
@@ -62,7 +59,6 @@ export const GeneralPage = GObject.registerClass(
             });
             alarmGroup.add(highThresholdRow);
 
-            // Bind the SpinRow using this._settings.bind.
             this._settings.bind(
                 Keys.HIGH_THRESHOLD,
                 highThresholdRow.adjustment,
@@ -70,13 +66,59 @@ export const GeneralPage = GObject.registerClass(
                 Gio.SettingsBindFlags.DEFAULT,
             );
 
-            // Create a new group for the update refresh interval.
+            const enableAlarmRow = new Adw.SwitchRow({
+                title: _('Enable Glucose Alarms'),
+                subtitle: _('Enable alarm notifications for glucose thresholds')
+            });
+            alarmGroup.add(enableAlarmRow);
+            this._settings.bind(
+                Keys.ENABLE_ALARM,
+                enableAlarmRow,
+                'active',
+                Gio.SettingsBindFlags.DEFAULT
+            );
+
+            const enableSoundRow = new Adw.SwitchRow({
+                title: _('Enable Sound Alerts'),
+                subtitle: _('Play sound when glucose is outside thresholds')
+            });
+            alarmGroup.add(enableSoundRow);
+            this._settings.bind(
+                Keys.ENABLE_SOUND,
+                enableSoundRow,
+                'active',
+                Gio.SettingsBindFlags.DEFAULT
+            );
+
+            const enableNotificationRow = new Adw.SwitchRow({
+                title: _('Show Notifications'),
+                subtitle: _('Display notification when glucose is outside thresholds')
+            });
+            alarmGroup.add(enableNotificationRow);
+            this._settings.bind(
+                Keys.ENABLE_NOTIFICATION,
+                enableNotificationRow,
+                'active',
+                Gio.SettingsBindFlags.DEFAULT
+            );
+
+            const soundRow = new Adw.EntryRow({
+                title: _('Alarm Sound'),
+
+            });
+            alarmGroup.add(soundRow);
+            this._settings.bind(
+                Keys.ALARM_SOUND,
+                soundRow,
+                'text',
+                Gio.SettingsBindFlags.DEFAULT
+            );
+
             const updateGroup = new Adw.PreferencesGroup({
                 title: _('Update Interval'),
             });
             this.add(updateGroup);
 
-            // Create a SpinRow for the update refresh interval.
             const refreshIntervalRow = new Adw.SpinRow({
                 title: _('Update Refresh Interval'),
                 subtitle: _('Interval for updating glucose data (in minutes)'),
@@ -91,7 +133,6 @@ export const GeneralPage = GObject.registerClass(
             });
             updateGroup.add(refreshIntervalRow);
 
-            // Bind the SpinRow using this._settings.bind.
             this._settings.bind(
                 Keys.REFRESH_INTERVAL,
                 refreshIntervalRow.adjustment,

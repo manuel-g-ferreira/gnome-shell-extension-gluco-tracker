@@ -64,15 +64,35 @@
             <summary>Refresh Interval</summary>
             <description>How often to refresh glucose data (in minutes)</description>
         </key>
-        <key name="low-threshold" type="d">
-            <default>70.0</default>
+        <key name="low-threshold" type="i">
+            <default>70</default>
             <summary>Low Glucose Threshold</summary>
             <description>Threshold for low glucose warning (in mg/dL)</description>
         </key>
-        <key name="high-threshold" type="d">
-            <default>180.0</default>
+        <key name="high-threshold" type="i">
+            <default>180</default>
             <summary>High Glucose Threshold</summary>
             <description>Threshold for high glucose warning (in mg/dL)</description>
+        </key>
+        <key name="enable-alarm" type="b">
+            <default>false</default>
+            <summary>Enable Alarm</summary>
+            <description>Enable alarm when glucose is out of range</description>
+        </key>
+        <key name="enable-sound" type="b">
+            <default>false</default>
+            <summary>Enable Sound</summary>
+            <description>Enable sound when glucose is out of range</description>
+        </key>
+        <key name="alarm-sound" type="s">
+            <default>'/usr/share/sounds/freedesktop/stereo/alarm-clock-elapsed.oga'</default>
+            <summary>Alarm Sound</summary>
+            <description>Sound to play when glucose is out of range</description>
+        </key>
+        <key name="enable-notifications" type="b">
+            <default>false</default>
+            <summary>Enable Notifications</summary>
+            <description>Enable notifications when glucose is out of range</description>
         </key>
     </schema>
 </schemalist>

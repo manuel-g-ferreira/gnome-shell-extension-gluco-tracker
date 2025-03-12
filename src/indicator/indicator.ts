@@ -9,6 +9,7 @@ import SettingsHelper from '../settings/helper.js';
 import {Keys} from '../settings/keys.js';
 import {TimeScheduler} from './timeScheduler.js';
 import {TrendFormatter} from './trendFormatter.js';
+import GlucoseAlarm from './alarm.js';
 
 export default GObject.registerClass(
     {
@@ -19,9 +20,13 @@ export default GObject.registerClass(
         private _prevValue: number = 0;
         private _currentValue: number = 0;
         private _scheduler: TimeScheduler = new TimeScheduler();
+        private _alarm: GlucoseAlarm | null = null;
 
         constructor() {
             super(0.0, 'GlucoseIndicator');
+
+            // Store the alarm reference
+            this._alarm = new GlucoseAlarm();
 
             // Create a container for proper vertical alignment
             const box = new St.BoxLayout({
@@ -64,6 +69,11 @@ export default GObject.registerClass(
                     const diffStr = TrendFormatter.formatDiff(this._currentValue, this._prevValue);
                     const trendArrow = TrendFormatter.getTrendArrow(reading.trend);
                     this._label.set_text(`${reading.value} ${trendArrow} ${diffStr}`);
+
+                    // Check if we need to trigger an alarm based on the glucose reading
+                    if (this._alarm && reading.value) {
+                        this._alarm.checkAlarm(reading.value);
+                    }
                 })
                 .catch((err: Error) => {
                     this._label.set_text('Error');
@@ -87,6 +97,13 @@ export default GObject.registerClass(
 
         destroy() {
             this._scheduler.clear();
+
+            // Clean up the alarm when indicator is destroyed
+            if (this._alarm) {
+                this._alarm.destroy();
+                this._alarm = null;
+            }
+
             super.destroy();
         }
     },

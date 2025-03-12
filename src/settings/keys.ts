@@ -14,4 +14,8 @@ export const Keys = {
     REFRESH_INTERVAL: 'refresh-interval',
     LOW_THRESHOLD: 'low-threshold',
     HIGH_THRESHOLD: 'high-threshold',
+    ENABLE_ALARM: 'enable-alarm',
+    ENABLE_SOUND: 'enable-sound',
+    ENABLE_NOTIFICATION: 'enable-notifications',
+    ALARM_SOUND: 'alarm-sound',
 };
